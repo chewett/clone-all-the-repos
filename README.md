@@ -2,10 +2,9 @@ Clone All Repos
 ===============
 
 This repository allows you to create a file which will
-clone all bare repositories from a filesystem.
+clone all repositories from a filesystem.
 
-This trawls the filesystem given a root directory to find
-bare git repositories.
+This trawls the filesystem given a root directory to find git repositories.
 
 Once it has found them it creates a list of git repositories
 and then creates a shell file to run git clone on them.
@@ -38,10 +37,10 @@ The current logic for finding repositories is probably sufficient
 but I could add further logic to run a git command and check
 to see if it identifies it as a git repository.
 
-### Logic for Checking if something is a bare git repository
+### Logic for Checking if something is a git repository
 
 For the purposes of this script I check if something
-is a bare git repository by seeing if it has the following:
+is a git repository by seeing if it has the following:
 
 Folders:
 * branches
