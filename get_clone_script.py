@@ -1,19 +1,25 @@
 import os
 import argparse
 
-git_prefix = "git clone"
-hostname = "hostname"
-clone_dir = "."
-mr_register = True
+parser = argparse.ArgumentParser(description="A python script to locate all git repositories on a filesystem and create a shell script to clone them all")
+parser.add_argument("searchdir", help="Directory to search for git repositories for")
+parser.add_argument("sshhostname", help="Hostname or SSH config name of the host you are cloning the repositories from")
+parser.add_argument("--mr-register", action='store_true', default=False, help="If provided this will also output the script for mr register")
+parser.add_argument("--git-clone-command",
+                    help="Command used in place of git clone, will be the prefix to the repository",
+                    default="git clone"
+                    )
 
-git_dir = "/gitthings/"
+args = parser.parse_args()
+
+clone_dir = "."
 
 
 def find_all_git_repos(directory):
     for d in os.listdir(directory):
-        if os.path.isdir(os.path.join(directory, d, "info")):
+        if is_git_bare_repo(os.path.join(directory, d)):
             print_git(os.path.join(directory, d))
-        else:
+        elif os.path.isdir(os.path.join(directory, d)):
             find_all_git_repos(os.path.join(directory, d))
 
 
@@ -33,10 +39,10 @@ def is_git_bare_repo(directory):
 
 
 def print_git(directory):
-    print git_prefix + " " + hostname + ":" + directory + " " + directory[len(git_dir):]
-    if mr_register:
-        print "mr register " + directory[len(git_dir):]
+    print args.git_clone_command + " " + args.sshhostname + ":" + directory + " " + directory[len(args.searchdir):]
+    if args.mr_register:
+        print "mr register " + directory[len(args.searchdir):]
 
 
-find_all_git_repos(git_dir)
+find_all_git_repos(args.searchdir)
 

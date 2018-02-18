@@ -10,9 +10,24 @@ bare git repositories.
 Once it has found them it creates a list of git repositories
 and then creates a shell file to run git clone on them.
 
-If the --my-repos flag is provided the shell script created
+If the `--my-repos` flag is provided the shell script created
 will also have the my repos register command for each
 repository
+
+## Examples
+
+```
+Command:
+python get_clone_script.py ~/Documents/git/ hostname --mr-register
+
+Output:
+git clone foobar:~/Documents/git/repo1.git repo1.git
+mr register repo1.git
+git clone foobar:~/Documents/git/subdir/repo2.git subdir/repo2.git
+mr register subdir/repo2.git
+```
+
+Here we print out the commands to stdout which can be piped to a file to run on a remote host.
 
 ### Checking if something is a bare git repository
 
