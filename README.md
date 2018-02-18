@@ -29,7 +29,16 @@ mr register subdir/repo2.git
 
 Here we print out the commands to stdout which can be piped to a file to run on a remote host.
 
-### Checking if something is a bare git repository
+## Future Improvements
+
+One of the improvements I am going to add in the future is
+to add some better logic for finding and checking repositories.
+
+The current logic for finding repositories is probably sufficient
+but I could add further logic to run a git command and check
+to see if it identifies it as a git repository.
+
+### Logic for Checking if something is a bare git repository
 
 For the purposes of this script I check if something
 is a bare git repository by seeing if it has the following:
