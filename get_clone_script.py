@@ -39,7 +39,8 @@ def is_git_bare_repo(directory):
 
 
 def print_git(directory):
-    print(args.git_clone_command + " " + args.sshhostname + ":" + directory + " " + directory[len(args.searchdir):])
+    dir_to_place_git_repo = directory[len(args.searchdir):].lstrip("/")
+    print(args.git_clone_command + " " + args.sshhostname + ":" + directory + " " + dir_to_place_git_repo)
     if args.mr_register:
         print("mr register " + directory[len(args.searchdir):])
 
