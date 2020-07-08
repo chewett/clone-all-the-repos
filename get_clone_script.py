@@ -5,6 +5,7 @@ parser = argparse.ArgumentParser(description="A python script to locate all git 
 parser.add_argument("searchdir", help="Directory to search for git repositories for")
 parser.add_argument("sshhostname", help="Hostname or SSH config name of the host you are cloning the repositories from")
 parser.add_argument("--mr-register", action='store_true', default=False, help="If provided this will also output the script for mr register")
+parser.add_argument("--create-dirs", action='store_true', default=False, help="If provided this will add a mkdir -p command in front of each git clone")
 parser.add_argument("--git-clone-command",
                     help="Command used in place of git clone, will be the prefix to the repository",
                     default="git clone"
@@ -40,6 +41,8 @@ def is_git_bare_repo(directory):
 
 def print_git(directory):
     dir_to_place_git_repo = directory[len(args.searchdir):].lstrip("/")
+    if args.create_dirs:
+        print("mkdir -p", os.path.dirname(dir_to_place_git_repo))
     print(args.git_clone_command + " " + args.sshhostname + ":" + directory + " " + dir_to_place_git_repo)
     if args.mr_register:
         print("mr register " + directory[len(args.searchdir):])
